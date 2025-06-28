@@ -3,27 +3,29 @@ VOICE-CONTROLLED VIDEO CUTTER - WINDOWS VERSION
 
 QUICK START - TRY THESE IN ORDER:
 
-METHOD 1 - PowerShell (RECOMMENDED):
-1. Right-click on "install_and_run.ps1"
-2. Select "Run with PowerShell"
-3. If prompted, type "Y" to allow execution
-4. Wait for installation to complete
-5. Open your browser to: http://localhost:5000
-
-METHOD 2 - Direct Path Detection:
-1. Right-click on "install_and_run_direct.bat"
+METHOD 1 - Simple Install (RECOMMENDED FOR YOUR SETUP):
+1. Right-click on "simple_install.bat"
 2. Select "Run as administrator"
 3. Wait for installation to complete
 4. Open your browser to: http://localhost:5000
 
-METHOD 3 - Manual Setup:
+METHOD 2 - Test Python Path First:
+1. Run "test_python_path.bat" to verify your Python location
+2. Then try "simple_install.bat"
+
+METHOD 3 - PowerShell:
+1. Right-click on "install_and_run.ps1"
+2. Select "Run with PowerShell"
+3. If prompted, type "Y" to allow execution
+
+METHOD 4 - Manual Setup:
 1. Open "MANUAL_SETUP.txt" and follow the step-by-step instructions
 2. Use Command Prompt (not Git Bash)
 
-METHOD 4 - Specific Python Paths:
-- For user directory Python: "install_and_run_userpath.bat"
-- For C:\Python312: "install_and_run_python312.bat"
-- For auto-detection: "install_and_run.bat"
+OTHER OPTIONS:
+- Auto-detection: "install_and_run_direct.bat"
+- User directory Python: "install_and_run_userpath.bat"
+- System Python: "install_and_run_python312.bat"
 
 WHAT THIS DOES:
 - Installs Python dependencies
