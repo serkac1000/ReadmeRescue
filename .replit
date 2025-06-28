@@ -2,7 +2,7 @@ modules = ["python-3.11", "web", "nodejs-20"]
 
 [nix]
 channel = "stable-24_05"
-packages = ["freetype", "lcms2", "libimagequant", "libjpeg", "libtiff", "libwebp", "libxcrypt", "openjpeg", "openssl", "portaudio", "postgresql", "tcl", "tk", "zlib", "ffmpeg", "zip"]
+packages = ["ffmpeg", "freetype", "lcms2", "libimagequant", "libjpeg", "libtiff", "libwebp", "libxcrypt", "openjpeg", "openssl", "portaudio", "postgresql", "tcl", "tk", "zip", "zlib"]
 
 [workflows]
 runButton = "Project"
