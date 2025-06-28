@@ -4,13 +4,20 @@ import tempfile
 import uuid
 from flask import Flask, request, jsonify, render_template, send_file, abort
 from werkzeug.utils import secure_filename
+from werkzeug.middleware.proxy_fix import ProxyFix
 import threading
 import time
+import logging
 
 app = Flask(__name__)
+app.secret_key = os.environ.get("SESSION_SECRET", "dev-key-change-in-production")
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 app.config['MAX_CONTENT_LENGTH'] = 500 * 1024 * 1024  # 500MB max file size
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['OUTPUT_FOLDER'] = 'output'
+
+# Set up logging
+logging.basicConfig(level=logging.DEBUG)
 
 # Create necessary directories
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
@@ -114,8 +121,8 @@ def upload_file():
     if file.filename == '':
         return jsonify({'error': 'No file selected'}), 400
     
-    if file:
-        filename = secure_filename(file.filename)
+    if file and file.filename:
+        filename = secure_filename(str(file.filename))
         # Add timestamp to avoid conflicts
         timestamp = str(int(time.time()))
         filename = f"{timestamp}_{filename}"
