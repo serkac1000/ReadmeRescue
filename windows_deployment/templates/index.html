@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice-Controlled Video Cutter</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center mb-4">
+                    <i class="fas fa-video me-2"></i>
+                    Voice-Controlled Video Cutter
+                </h1>
+            </div>
+        </div>
+
+        <!-- System Status -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div id="system-status" class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Checking system status...
+                </div>
+            </div>
+        </div>
+
+        <!-- File Upload Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-upload me-2"></i>Step 1: Upload Video File</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <input type="file" id="video-file" class="form-control" accept="video/*">
+                        </div>
+                        <button id="upload-btn" class="btn btn-primary" disabled>
+                            <i class="fas fa-upload me-2"></i>Upload Video
+                        </button>
+                        <div id="upload-status" class="mt-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Preview Section -->
+        <div class="row mb-4" id="video-preview-section" style="display: none;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-play me-2"></i>Video Preview</h5>
+                    </div>
+                    <div class="card-body">
+                        <video id="video-preview" controls class="w-100" style="max-height: 400px;">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Voice Commands Section -->
+        <div class="row mb-4" id="voice-commands-section" style="display: none;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-microphone me-2"></i>Step 2: Voice Commands</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Available Commands:</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-cut me-2"></i><strong>Cut Video:</strong> "Cut from [X] seconds to [Y] seconds"</li>
+                                    <li><i class="fas fa-save me-2"></i><strong>Save:</strong> "Save with name [filename]"</li>
+                                    <li><i class="fas fa-times me-2"></i><strong>Cancel:</strong> "Cancel" or "Stop"</li>
+                                </ul>
+                                <p class="text-muted small">
+                                    Examples: "Cut from 10 seconds to 30 seconds", "Cut from 1 minute to 2 minutes 15 seconds"
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <button id="voice-btn" class="btn btn-success btn-lg w-100">
+                                    <i class="fas fa-microphone me-2"></i>Click to Give Voice Command
+                                </button>
+                                <div id="voice-status" class="mt-2 text-center"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manual Input Section -->
+        <div class="row mb-4" id="manual-input-section" style="display: none;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-edit me-2"></i>Alternative: Manual Input</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="start-time" class="form-label">Start Time</label>
+                                <input type="text" id="start-time" class="form-control" placeholder="e.g., 10 seconds, 1 minute 30 seconds">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="end-time" class="form-label">End Time</label>
+                                <input type="text" id="end-time" class="form-control" placeholder="e.g., 45 seconds, 2 minutes">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="output-name" class="form-label">Output Name</label>
+                                <input type="text" id="output-name" class="form-control" placeholder="my_clip">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <button id="manual-cut-btn" class="btn btn-warning">
+                                    <i class="fas fa-cut me-2"></i>Cut Video
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Processing Status -->
+        <div class="row mb-4" id="processing-section" style="display: none;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-cog fa-spin me-2"></i>Processing</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="progress mb-3">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%"></div>
+                        </div>
+                        <div id="processing-status" class="text-center">
+                            Processing your video...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="row mb-4" id="results-section" style="display: none;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-check-circle me-2"></i>Results</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="results-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
