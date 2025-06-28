@@ -103,7 +103,8 @@ The project follows a dual-architecture approach:
 
 ## Changelog
 
-- June 28, 2025. Initial setup
+- June 28, 2025: Initial setup
+- June 28, 2025: Created complete Windows distribution package (voice_video_cutter_windows.zip) with automated installer
 
 ## User Preferences
 

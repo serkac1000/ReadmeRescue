@@ -1,0 +1,50 @@
+================================================
+Voice-Controlled Video Cutter - Quick Start Guide
+================================================
+
+Welcome! This package contains everything you need to run the Voice-Controlled Video Cutter on Windows.
+
+QUICK START:
+1. Make sure Python is installed (python.org)
+2. Double-click "install_and_run.bat"
+3. Wait for setup to complete
+4. The application will start automatically!
+
+WHAT EACH FILE DOES:
+- install_and_run.bat    -> Main setup and launch script (START HERE!)
+- install_ffmpeg.ps1     -> Installs FFmpeg for video processing
+- main.py               -> The application code
+- requirements.txt      -> Python package dependencies
+- README.md             -> Detailed documentation
+- setup.py              -> Advanced installation options
+
+FIRST TIME SETUP:
+1. Install Python 3.7+ from https://python.org
+   - IMPORTANT: Check "Add Python to PATH" during installation
+2. Double-click "install_and_run.bat"
+3. If FFmpeg is not found, run "install_ffmpeg.ps1" as administrator
+4. The application will open with a graphical interface
+
+HOW TO USE:
+1. Click "Select Video File" and choose your video
+2. Either use voice commands or manual input:
+   
+   VOICE: Click microphone button and say:
+   - "Cut from 10 seconds to 30 seconds"
+   - "Save with name my_clip"
+   
+   MANUAL: Fill in the text fields:
+   - Start time: "10 seconds" or "1 minute 30 seconds"  
+   - End time: "30 seconds" or "2 minutes"
+   - Output name: "my_clip"
+   - Click "Cut Video"
+
+TROUBLESHOOTING:
+- If Python error: Install Python and check "Add to PATH"
+- If FFmpeg error: Run install_ffmpeg.ps1 as administrator
+- If voice doesn't work: Use manual input instead
+- If video preview missing: Normal, core features still work
+
+Need help? Check README.md for detailed instructions.
+
+================================================
