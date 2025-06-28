@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice-Controlled Video Cutter - Static Demo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .card {
+            border: none;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card-header {
+            background-color: #fff;
+            border-bottom: 1px solid #dee2e6;
+            font-weight: 600;
+        }
+        
+        .btn {
+            border-radius: 0.375rem;
+            font-weight: 500;
+        }
+        
+        .alert {
+            border: none;
+            border-radius: 0.5rem;
+        }
+        
+        .demo-notice {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .feature-card {
+            height: 100%;
+            transition: transform 0.2s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .icon-large {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .download-section {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <!-- Header -->
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center mb-4">
+                    <i class="fas fa-video me-2"></i>
+                    Voice-Controlled Video Cutter
+                </h1>
+            </div>
+        </div>
+
+        <!-- Demo Notice -->
+        <div class="demo-notice">
+            <h2><i class="fas fa-info-circle me-2"></i>Welcome to the Voice-Controlled Video Cutter</h2>
+            <p class="lead mb-0">
+                This is a static demonstration page. For the full application experience with video processing capabilities, 
+                please download and run the desktop application below.
+            </p>
+        </div>
+
+        <!-- Features Section -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-center mb-4">Key Features</h3>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card feature-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-microphone icon-large text-primary"></i>
+                        <h5 class="card-title">Voice Commands</h5>
+                        <p class="card-text">
+                            Cut videos using natural language. Say "Cut from 10 seconds to 30 seconds" 
+                            and let the AI handle the rest.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card feature-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-play icon-large text-success"></i>
+                        <h5 class="card-title">Video Preview</h5>
+                        <p class="card-text">
+                            Built-in video player lets you preview your content and find the exact 
+                            moments you want to cut.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card feature-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-cut icon-large text-warning"></i>
+                        <h5 class="card-title">Precise Cutting</h5>
+                        <p class="card-text">
+                            Powered by FFmpeg for professional-quality video processing with 
+                            frame-accurate cutting capabilities.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How It Works -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4><i class="fas fa-list-ol me-2"></i>How It Works</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 text-center mb-3">
+                                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <span class="h4 mb-0">1</span>
+                                </div>
+                                <h6>Select Video</h6>
+                                <p class="small text-muted">Choose your MP4, AVI, or other video file</p>
+                            </div>
+                            <div class="col-md-3 text-center mb-3">
+                                <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <span class="h4 mb-0">2</span>
+                                </div>
+                                <h6>Give Voice Command</h6>
+                                <p class="small text-muted">Speak naturally: "Cut from 1 minute to 2 minutes"</p>
+                            </div>
+                            <div class="col-md-3 text-center mb-3">
+                                <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <span class="h4 mb-0">3</span>
+                                </div>
+                                <h6>Preview Cut</h6>
+                                <p class="small text-muted">Review the selected segment in the preview player</p>
+                            </div>
+                            <div class="col-md-3 text-center mb-3">
+                                <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <span class="h4 mb-0">4</span>
+                                </div>
+                                <h6>Save Result</h6>
+                                <p class="small text-muted">Say "Save with name my_clip" to export</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Voice Commands Reference -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4><i class="fas fa-microphone me-2"></i>Voice Commands Reference</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="text-primary">Cutting Commands</h6>
+                                <ul class="list-unstyled">
+                                    <li><code>"Cut from 10 seconds to 30 seconds"</code></li>
+                                    <li><code>"Cut from 1 minute to 2 minutes 15 seconds"</code></li>
+                                    <li><code>"Cut from 45 seconds to 1 minute 30 seconds"</code></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="text-success">Save Commands</h6>
+                                <ul class="list-unstyled">
+                                    <li><code>"Save with name my_highlight"</code></li>
+                                    <li><code>"Save with name best_moments"</code></li>
+                                    <li><code>"Save with name final_cut"</code></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="alert alert-info mt-3">
+                            <i class="fas fa-lightbulb me-2"></i>
+                            <strong>Tip:</strong> Speak clearly and naturally. The application supports various time formats 
+                            including seconds, minutes, and combinations like "1 minute 30 seconds".
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Requirements -->
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-desktop me-2"></i>System Requirements</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success me-2"></i>Python 3.7 or higher</li>
+                            <li><i class="fas fa-check text-success me-2"></i>FFmpeg (auto-installable)</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Windows, macOS, or Linux</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Microphone (for voice commands)</li>
+                            <li><i class="fas fa-check text-success me-2"></i>2GB RAM minimum</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-file-video me-2"></i>Supported Formats</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-video text-primary me-2"></i>MP4 (recommended)</li>
+                            <li><i class="fas fa-video text-primary me-2"></i>AVI</li>
+                            <li><i class="fas fa-video text-primary me-2"></i>MOV</li>
+                            <li><i class="fas fa-video text-primary me-2"></i>MKV</li>
+                            <li><i class="fas fa-video text-primary me-2"></i>WMV, FLV, WEBM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Download Section -->
+        <div class="download-section">
+            <h3><i class="fas fa-download me-2"></i>Get Started</h3>
+            <p class="lead">
+                Ready to start cutting videos with your voice? Download the desktop application 
+                and get up and running in minutes.
+            </p>
+            
+            <div class="row justify-content-center mt-4">
+                <div class="col-md-4 mb-3">
+                    <div class="card bg-white text-dark">
+                        <div class="card-body text-center">
+                            <i class="fab fa-windows icon-large text-primary"></i>
+                            <h5>Windows</h5>
+                            <p class="small">Automated installer with FFmpeg setup</p>
+                            <button class="btn btn-primary" onclick="showInstructions('windows')">
+                                <i class="fas fa-download me-2"></i>Download
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                    <div class="card bg-white text-dark">
+                        <div class="card-body text-center">
+                            <i class="fab fa-apple icon-large text-secondary"></i>
+                            <h5>macOS</h5>
+                            <p class="small">Python package with dependencies</p>
+                            <button class="btn btn-secondary" onclick="showInstructions('macos')">
+                                <i class="fas fa-download me-2"></i>Download
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                    <div class="card bg-white text-dark">
+                        <div class="card-body text-center">
+                            <i class="fab fa-linux icon-large text-warning"></i>
+                            <h5>Linux</h5>
+                            <p class="small">Source code with setup script</p>
+                            <button class="btn btn-warning" onclick="showInstructions('linux')">
+                                <i class="fas fa-download me-2"></i>Download
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Installation Instructions Modal -->
+        <div class="modal fade" id="instructionsModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Installation Instructions</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="instructions-content">
+                            <!-- Content will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-5 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-muted mb-0">
+                        Voice-Controlled Video Cutter - Making video editing accessible through natural language
+                    </p>
+                    <small class="text-muted">
+                        Powered by Python, Tkinter, SpeechRecognition, and FFmpeg
+                    </small>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function showInstructions(platform) {
+            const modal = new bootstrap.Modal(document.getElementById('instructionsModal'));
+            const content = document.getElementById('instructions-content');
+            
+            let instructions = '';
+            
+            switch(platform) {
+                case 'windows':
+                    instructions = `
+                        <h6><i class="fab fa-windows me-2"></i>Windows Installation</h6>
+                        <ol>
+                            <li><strong>Download the application files</strong> from the repository</li>
+                            <li><strong>Extract</strong> to a folder of your choice</li>
+                            <li><strong>Run as Administrator:</strong> Right-click <code>install_ffmpeg.ps1</code> → "Run with PowerShell"</li>
+                            <li><strong>Start the app:</strong> Double-click <code>install_and_run.bat</code></li>
+                        </ol>
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            The batch file will automatically create a virtual environment and install all dependencies.
+                        </div>
+                        <h6>Alternative Manual Installation:</h6>
+                        <pre class="bg-light p-3 rounded"><code>git clone &lt;repository-url&gt;
+cd voice-video-cutter
+python -m venv venv
+venv\\Scripts\\activate
+pip install -r requirements.txt
+python main.py</code></pre>
+                    `;
+                    break;
+                    
+                case 'macos':
+                    instructions = `
+                        <h6><i class="fab fa-apple me-2"></i>macOS Installation</h6>
+                        <ol>
+                            <li><strong>Install FFmpeg:</strong> <code>brew install ffmpeg</code></li>
+                            <li><strong>Download the application files</strong> from the repository</li>
+                            <li><strong>Open Terminal</strong> and navigate to the app folder</li>
+                            <li><strong>Run the setup:</strong></li>
+                        </ol>
+                        <pre class="bg-light p-3 rounded"><code>python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python main.py</code></pre>
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            You may need to grant microphone permissions in System Preferences → Security & Privacy.
+                        </div>
+                    `;
+                    break;
+                    
+                case 'linux':
+                    instructions = `
+                        <h6><i class="fab fa-linux me-2"></i>Linux Installation</h6>
+                        <ol>
+                            <li><strong>Install system dependencies:</strong></li>
+                        </ol>
+                        <pre class="bg-light p-3 rounded"><code># Ubuntu/Debian:
+sudo apt update
+sudo apt install python3 python3-pip python3-venv ffmpeg portaudio19-dev
+
+# Fedora:
+sudo dnf install python3 python3-pip ffmpeg portaudio-devel
+
+# Arch:
+sudo pacman -S python python-pip ffmpeg portaudio</code></pre>
+                        <ol start="2">
+                            <li><strong>Clone and setup the application:</strong></li>
+                        </ol>
+                        <pre class="bg-light p-3 rounded"><code>git clone &lt;repository-url&gt;
+cd voice-video-cutter
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python main.py</code></pre>
+                    `;
+                    break;
+            }
+            
+            content.innerHTML = instructions;
+            modal.show();
+        }
+        
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate feature cards on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe feature cards
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
