@@ -19,10 +19,19 @@ if %errorlevel% neq 0 (
     pip3 install flask
 )
 
-echo Installing additional dependencies...
-pip install werkzeug pillow
+echo Installing from requirements file...
+if exist windows_requirements.txt (
+    pip install -r windows_requirements.txt
+) else (
+    echo Installing individual packages...
+    pip install werkzeug pillow gunicorn
+)
 
 echo.
 echo Flask installation complete!
-echo You can now run: python app.py
+echo.
+echo To run the application:
+echo 1. python app.py
+echo 2. Open browser to http://localhost:5000
+echo.
 pause

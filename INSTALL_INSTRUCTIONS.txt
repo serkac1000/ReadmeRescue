@@ -1,0 +1,27 @@
+WINDOWS INSTALLATION INSTRUCTIONS
+===================================
+
+STEP 1: Install Python (if not already installed)
+- Download Python 3.11+ from https://python.org/downloads/
+- IMPORTANT: Check "Add Python to PATH" during installation
+- Restart Command Prompt after installation
+
+STEP 2: Install Flask and Dependencies
+Open Command Prompt and run ONE of these options:
+
+OPTION A (Recommended):
+pip install flask werkzeug pillow
+
+OPTION B (Using requirements file):
+pip install -r windows_requirements.txt
+
+STEP 3: Run the Application
+python app.py
+
+STEP 4: Open Browser
+Go to: http://localhost:5000
+
+TROUBLESHOOTING:
+- If "python not recognized": Reinstall Python with PATH option
+- If "pip not recognized": Try "python -m pip install flask"
+- If modules missing: Run the pip install command again
