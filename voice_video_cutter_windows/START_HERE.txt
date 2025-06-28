@@ -11,13 +11,14 @@ QUICK START:
 4. The application will start automatically!
 
 WHAT EACH FILE DOES:
-- install_and_run.bat    -> Main setup and launch script (START HERE!)
-- install_ffmpeg.ps1     -> Installs FFmpeg for video processing
-- install_pyaudio.bat    -> Fixes speech recognition if needed
-- main.py               -> The application code
-- requirements.txt      -> Python package dependencies
-- README.md             -> Detailed documentation
-- setup.py              -> Advanced installation options
+- install_and_run.bat      -> Main setup and launch script (START HERE!)
+- install_ffmpeg.ps1       -> Installs FFmpeg for video processing
+- fix_speech_recognition.py -> Visual GUI tool to fix speech recognition
+- install_pyaudio.bat      -> Command-line speech recognition fixer
+- main.py                 -> The application code
+- requirements.txt        -> Python package dependencies
+- README.md               -> Detailed documentation
+- setup.py                -> Advanced installation options
 
 FIRST TIME SETUP:
 1. Install Python 3.7+ from https://python.org
@@ -55,9 +56,18 @@ TROUBLESHOOTING:
 
 SPEECH RECOGNITION FIX:
 If you see "speech recognition not available":
+
+OPTION 1 - Visual Installer (Recommended):
+1. Double-click "fix_speech_recognition.py"
+2. Click "Fix Speech Recognition" 
+3. Wait for automatic installation
+4. Click "Test Speech Recognition" to verify
+
+OPTION 2 - Command Line:
 1. Double-click "install_pyaudio.bat"
-2. This will try multiple methods to install PyAudio
-3. If all methods fail, it will show manual installation steps
+2. Follow the on-screen instructions
+
+The app works without speech recognition (use manual input instead).
 
 Need help? Check README.md for detailed instructions.
 

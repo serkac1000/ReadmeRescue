@@ -15,21 +15,67 @@ import time
 import platform
 from pathlib import Path
 
-# Try to import speech recognition
-try:
-    import speech_recognition as sr
-    SPEECH_AVAILABLE = True
-except ImportError:
-    SPEECH_AVAILABLE = False
-    print("Warning: speech_recognition not available. Voice commands will be disabled.")
+# Initialize dependency flags
+SPEECH_AVAILABLE = False
+VIDEO_PLAYER_AVAILABLE = False
+sr = None
+TkinterVideo = None
 
-# Try to import video player
-try:
-    from tkVideoPlayer import TkinterVideo
-    VIDEO_PLAYER_AVAILABLE = True
-except ImportError:
-    VIDEO_PLAYER_AVAILABLE = False
-    print("Warning: tkvideoplayer not available. Video preview will be disabled.")
+def check_speech_recognition():
+    """Check if speech recognition is fully functional"""
+    global SPEECH_AVAILABLE, sr
+    try:
+        import speech_recognition as sr
+        # Test PyAudio availability
+        recognizer = sr.Recognizer()
+        mic = sr.Microphone()
+        # Quick test to see if microphone works
+        with mic as source:
+            recognizer.adjust_for_ambient_noise(source, duration=1)
+        SPEECH_AVAILABLE = True
+        print("✓ Speech recognition working")
+        return True
+    except ImportError as e:
+        if "PyAudio" in str(e):
+            print("✗ PyAudio not installed - run install_pyaudio.bat")
+        else:
+            print(f"✗ SpeechRecognition package not installed: {e}")
+        return False
+    except OSError as e:
+        if "No Default Input Device Available" in str(e):
+            print("✗ No microphone detected")
+        elif "PortAudio" in str(e):
+            print("✗ PortAudio error - run install_pyaudio.bat")
+        else:
+            print(f"✗ Audio system error: {e}")
+        return False
+    except Exception as e:
+        if "PyAudio" in str(e) or "Could not find PyAudio" in str(e):
+            print("✗ PyAudio missing - run install_pyaudio.bat")
+        else:
+            print(f"✗ Speech recognition error: {e}")
+        return False
+
+def check_video_player():
+    """Check if video player is available"""
+    global VIDEO_PLAYER_AVAILABLE, TkinterVideo
+    try:
+        from tkVideoPlayer import TkinterVideo
+        VIDEO_PLAYER_AVAILABLE = True
+        print("✓ Video preview available")
+        return True
+    except ImportError:
+        print("✗ tkvideoplayer not installed")
+        print("  Run: pip install tkvideoplayer")
+        return False
+    except Exception as e:
+        print(f"✗ Video player error: {e}")
+        return False
+
+# Check dependencies at startup
+print("Checking dependencies...")
+check_speech_recognition()
+check_video_player()
 
 class VoiceVideoEditor(tk.Tk):
     def __init__(self):
@@ -283,13 +329,19 @@ Note: Speak clearly and wait for the "Listening..." indicator."""
     
     def init_speech_recognition(self):
         """Initialize speech recognition"""
+        if not SPEECH_AVAILABLE or sr is None:
+            self.listen_button.configure(state="disabled", text="🎤 Speech Not Available")
+            return
+            
         try:
             self.recognizer = sr.Recognizer()
             self.microphone = sr.Microphone()
             
             # Adjust for ambient noise
             with self.microphone as source:
-                self.recognizer.adjust_for_ambient_noise(source, duration=0.5)
+                self.recognizer.adjust_for_ambient_noise(source, duration=1)
+            
+            print("Speech recognition initialized successfully")
         except Exception as e:
             print(f"Error initializing speech recognition: {e}")
             self.listen_button.configure(state="disabled", text="🎤 Microphone Error")

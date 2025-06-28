@@ -157,6 +157,29 @@ echo.
 echo Dependencies installation completed.
 echo.
 
+:: Test speech recognition and offer GUI fixer if needed
+echo Testing speech recognition...
+!PYTHON_CMD! -c "
+try:
+    import speech_recognition as sr
+    r = sr.Recognizer()
+    m = sr.Microphone()
+    with m as source:
+        r.adjust_for_ambient_noise(source, duration=0.5)
+    print('Speech recognition working!')
+except Exception as e:
+    print(f'Speech recognition issue: {e}')
+    print('A GUI tool is available to fix this.')
+" 2>nul
+
+if !errorlevel! neq 0 (
+    echo.
+    echo Speech recognition needs fixing. You can:
+    echo 1. Run fix_speech_recognition.py for a visual installer
+    echo 2. Or run install_pyaudio.bat for command-line fixing
+    echo.
+)
+
 echo.
 echo ================================================================
 echo Setup completed! Starting Voice-Controlled Video Cutter...
