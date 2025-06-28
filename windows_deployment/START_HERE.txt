@@ -1,18 +1,16 @@
 VOICE-CONTROLLED VIDEO CUTTER - WINDOWS VERSION
 ===============================================
 
-QUICK START - TRY THESE IN ORDER:
+QUICK START - FOR FRESH PYTHON INSTALLATION:
 
-METHOD 1 - Universal Install (BEST FOR ANY PYTHON SETUP):
-1. Right-click on "universal_install.bat"
-2. Select "Run as administrator"
-3. Wait for installation to complete
-4. Open your browser to: http://localhost:5000
+METHOD 1 - Quick Install (RECOMMENDED AFTER PYTHON REINSTALL):
+1. First run "test_python.bat" to verify Python is working
+2. If test passes, run "quick_install.bat"
+3. Open your browser to: http://localhost:5000
 
-METHOD 2 - Diagnose Python First (IF METHOD 1 FAILS):
-1. Run "diagnose_python.bat" to find your exact Python location
-2. Share the results to get a custom installer
-3. Then try "universal_install.bat" again
+METHOD 2 - If Quick Install Fails:
+1. Run "diagnose_python.bat" to check Python installation
+2. Try "universal_install.bat" which handles multiple Python setups
 
 METHOD 3 - PowerShell Alternative:
 1. Right-click on "install_and_run.ps1"
