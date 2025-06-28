@@ -13,6 +13,7 @@ QUICK START:
 WHAT EACH FILE DOES:
 - install_and_run.bat    -> Main setup and launch script (START HERE!)
 - install_ffmpeg.ps1     -> Installs FFmpeg for video processing
+- install_pyaudio.bat    -> Fixes speech recognition if needed
 - main.py               -> The application code
 - requirements.txt      -> Python package dependencies
 - README.md             -> Detailed documentation
@@ -49,8 +50,14 @@ HOW TO USE:
 TROUBLESHOOTING:
 - If Python error: Install Python and check "Add to PATH"
 - If FFmpeg error: Run install_ffmpeg.ps1 as administrator
-- If voice doesn't work: Use manual input instead
+- If voice doesn't work: Run install_pyaudio.bat to fix speech recognition
 - If video preview missing: Normal, core features still work
+
+SPEECH RECOGNITION FIX:
+If you see "speech recognition not available":
+1. Double-click "install_pyaudio.bat"
+2. This will try multiple methods to install PyAudio
+3. If all methods fail, it will show manual installation steps
 
 Need help? Check README.md for detailed instructions.
 

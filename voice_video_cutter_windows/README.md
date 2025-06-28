@@ -90,8 +90,10 @@ A Python desktop application with a graphical user interface for cutting video f
 - Or manually install FFmpeg to `C:\ffmpeg`
 
 **"Speech recognition not available"**
-- This is normal - you can still use manual input
-- For voice commands, ensure you have a working microphone
+- Run `install_pyaudio.bat` to fix PyAudio installation
+- PyAudio is required for microphone access
+- If installation fails, download PyAudio wheel from https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio
+- Manual input still works without speech recognition
 
 **"Video preview not available"**
 - This is normal - the core functionality still works

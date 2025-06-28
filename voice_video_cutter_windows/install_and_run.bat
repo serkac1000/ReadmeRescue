@@ -111,25 +111,51 @@ echo [5/5] Installing/updating Python dependencies...
 
 :: Install requirements with error handling
 !PYTHON_CMD! -m pip install -r requirements.txt
+
+:: Install PyAudio separately with better error handling
+echo Installing PyAudio for speech recognition...
+!PYTHON_CMD! -m pip install PyAudio
 if !errorlevel! neq 0 (
-    echo.
-    echo WARNING: Some dependencies failed to install
-    echo This is common with PyAudio on Windows. Trying alternative installation...
-    echo.
+    echo PyAudio installation failed. Trying alternative methods...
     
-    :: Try installing PyAudio from wheel
-    !PYTHON_CMD! -m pip install --upgrade pip
+    :: Method 1: Try pipwin
     !PYTHON_CMD! -m pip install pipwin
-    pipwin install pyaudio
+    if !errorlevel! equ 0 (
+        pipwin install pyaudio
+        if !errorlevel! equ 0 (
+            echo PyAudio installed successfully via pipwin
+            goto :pyaudio_done
+        )
+    )
     
-    :: Install other requirements
-    !PYTHON_CMD! -m pip install SpeechRecognition tkvideoplayer Pillow
+    :: Method 2: Try specific wheel for common Python versions
+    echo Trying pre-built wheels for common Python versions...
+    !PYTHON_CMD! -c "import sys; print(f'Python {sys.version_info.major}.{sys.version_info.minor} detected')"
+    
+    :: Try installing from unofficial binaries
+    !PYTHON_CMD! -m pip install --upgrade pip
+    !PYTHON_CMD! -m pip install --find-links https://github.com/intxcc/pyaudio_portaudio/releases PyAudio
+    if !errorlevel! equ 0 (
+        echo PyAudio installed successfully via unofficial binaries
+        goto :pyaudio_done
+    )
     
     echo.
-    echo Dependencies installation completed with warnings.
-    echo The application should still work, but some features might be limited.
+    echo WARNING: PyAudio installation failed with all methods.
+    echo Voice recognition will not be available, but manual input will still work.
     echo.
+    echo To fix this manually:
+    echo 1. Install Microsoft Visual C++ Build Tools
+    echo 2. Or download PyAudio wheel from: https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio
+    echo.
+) else (
+    echo PyAudio installed successfully
 )
+
+:pyaudio_done
+echo.
+echo Dependencies installation completed.
+echo.
 
 echo.
 echo ================================================================
