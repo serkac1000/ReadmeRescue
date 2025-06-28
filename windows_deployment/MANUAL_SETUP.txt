@@ -1,0 +1,59 @@
+MANUAL SETUP GUIDE
+==================
+
+If the automatic scripts don't work, follow these manual steps:
+
+STEP 1: Open Command Prompt
+---------------------------
+1. Press Windows + R
+2. Type "cmd" and press Enter
+3. Navigate to the folder where you extracted the files:
+   cd "C:\path\to\your\extracted\folder"
+
+STEP 2: Find Your Python
+-------------------------
+Try these commands one by one until one works:
+
+python --version
+C:\Users\serka\AppData\Local\Programs\Python\Python312\python.exe --version
+%USERPROFILE%\AppData\Local\Programs\Python\Python312\python.exe --version
+
+Once you find the working Python command, use it for the next steps.
+
+STEP 3: Install Dependencies
+-----------------------------
+Replace "python" with your working Python command:
+
+python -m pip install --upgrade pip
+python -m pip install Flask Werkzeug SpeechRecognition
+python -m pip install pyaudio
+
+(If pyaudio fails, that's okay - voice recognition just won't work)
+
+STEP 4: Install FFmpeg
+-----------------------
+Download from: https://ffmpeg.org/download.html
+Extract to C:\ffmpeg and add C:\ffmpeg\bin to your PATH
+
+STEP 5: Start the Application
+-----------------------------
+python app.py
+
+Then open your browser to: http://localhost:5000
+
+TROUBLESHOOTING
+===============
+
+Virtual Environment Error:
+If you see "venv\Scripts\activate: command not found":
+- You're in Git Bash, use Command Prompt instead
+- Or use: source venv/Scripts/activate (with forward slashes)
+
+Python Not Found:
+- Make sure Python is installed
+- Check the exact path in File Explorer
+- Use the full path instead of just "python"
+
+Port Already in Use:
+- Close any other running instances
+- Or change the port in app.py (line with port=5000)
