@@ -4,19 +4,32 @@ echo Voice-Controlled Video Cutter Setup
 echo ===================================
 echo.
 
-REM Check if Python is installed
-python --version >nul 2>&1
-if errorlevel 1 (
-    echo ERROR: Python is not installed or not in PATH
-    echo Please install Python 3.7+ from https://www.python.org/downloads/
-    echo Make sure to check "Add Python to PATH" during installation
-    pause
-    exit /b 1
+REM Set Python paths - try common installation locations
+set PYTHON_PATHS=python;C:\Python312\python.exe;C:\Python311\python.exe;C:\Python310\python.exe;C:\Python39\python.exe;%LOCALAPPDATA%\Programs\Python\Python312\python.exe;%LOCALAPPDATA%\Programs\Python\Python311\python.exe
+
+set PYTHON_CMD=
+for %%i in (%PYTHON_PATHS%) do (
+    %%i --version >nul 2>&1
+    if not errorlevel 1 (
+        set PYTHON_CMD=%%i
+        goto :found_python
+    )
 )
 
+echo ERROR: Python is not found in common locations
+echo Checked: %PYTHON_PATHS%
+echo.
+echo Please ensure Python 3.7+ is installed from https://www.python.org/downloads/
+echo Or add Python to your system PATH
+pause
+exit /b 1
+
+:found_python
+echo Found Python: %PYTHON_CMD%
+
 echo Python found. Installing dependencies...
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
+%PYTHON_CMD% -m pip install --upgrade pip
+%PYTHON_CMD% -m pip install -r requirements.txt
 
 if errorlevel 1 (
     echo.
@@ -36,6 +49,6 @@ echo.
 echo Press Ctrl+C to stop the server
 echo.
 
-python app.py
+%PYTHON_CMD% app.py
 
 pause
