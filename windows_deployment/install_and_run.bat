@@ -5,7 +5,7 @@ echo ===================================
 echo.
 
 REM Set Python paths - try common installation locations
-set PYTHON_PATHS=python;C:\Python312\python.exe;C:\Python311\python.exe;C:\Python310\python.exe;C:\Python39\python.exe;%LOCALAPPDATA%\Programs\Python\Python312\python.exe;%LOCALAPPDATA%\Programs\Python\Python311\python.exe
+set PYTHON_PATHS=python;C:\Python312\python.exe;C:\Python311\python.exe;C:\Python310\python.exe;C:\Python39\python.exe;%LOCALAPPDATA%\Programs\Python\Python312\python.exe;%LOCALAPPDATA%\Programs\Python\Python311\python.exe;%LOCALAPPDATA%\Programs\Python\Python310\python.exe;%USERPROFILE%\AppData\Local\Programs\Python\Python312\python.exe;%USERPROFILE%\AppData\Local\Programs\Python\Python311\python.exe
 
 set PYTHON_CMD=
 for %%i in (%PYTHON_PATHS%) do (
