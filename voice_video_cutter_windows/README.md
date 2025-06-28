@@ -96,8 +96,8 @@ A Python desktop application with a graphical user interface for cutting video f
 - Note: Manual input still works without speech recognition
 
 **"Video preview not available"**
-- This is normal - the core functionality still works
-- Video preview requires additional packages that may not install on all systems
+- This is normal and expected - the core functionality still works
+- Video preview has been disabled to ensure compatibility across all Windows systems
 
 ### Getting Help
 

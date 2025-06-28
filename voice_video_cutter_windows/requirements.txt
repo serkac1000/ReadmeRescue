@@ -1,3 +1,2 @@
 SpeechRecognition>=3.8.1
-tkvideoplayer>=2.3
 Pillow>=8.0.0

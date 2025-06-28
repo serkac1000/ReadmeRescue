@@ -1,0 +1,83 @@
+
+========================================
+VOICE VIDEO CUTTER - WINDOWS TEST PACKAGE
+========================================
+
+QUICK START FOR TESTING:
+========================
+
+1. INSTALL PYTHON (if not already installed):
+   - Download from: https://python.org/downloads/
+   - IMPORTANT: Check "Add Python to PATH" during installation
+   - Verify: Open Command Prompt and type "python --version"
+
+2. INSTALL FFMPEG:
+   - Right-click on "install_ffmpeg.ps1"
+   - Select "Run with PowerShell"
+   - May require administrator privileges
+
+3. RUN THE APPLICATION:
+   - Double-click "install_and_run.bat"
+   - This will automatically install dependencies and start the app
+
+ALTERNATIVE INSTALLATION:
+========================
+
+If the automatic installation doesn't work:
+
+1. Open Command Prompt in this folder
+2. Run: pip install -r requirements.txt
+3. If speech recognition fails, run: install_pyaudio.bat
+4. Run: python main.py
+
+TESTING CHECKLIST:
+==================
+
+□ Application starts without errors
+□ Can select a video file
+□ Manual input works (start/end times)
+□ Can cut video using manual input
+□ Voice commands work (if PyAudio installed)
+□ FFmpeg processes video correctly
+□ Output files are created successfully
+
+EXPECTED BEHAVIOR:
+==================
+
+✓ Application should start with GUI interface
+✓ Manual input should always work
+✓ Video preview may show "not available" - this is normal
+✓ Voice commands may not work if PyAudio fails - manual input is the fallback
+✓ FFmpeg is required for actual video processing
+
+TROUBLESHOOTING:
+===============
+
+- If "Python not found": Reinstall Python with PATH option checked
+- If "FFmpeg not found": Run install_ffmpeg.ps1 as administrator
+- If "Speech not available": Run fix_speech_recognition.py for guided fix
+- If app crashes: Check that video file is valid format (MP4, AVI, etc.)
+
+FILES INCLUDED:
+===============
+
+main.py                    - Main application
+requirements.txt           - Python dependencies
+install_and_run.bat       - Automated setup script
+install_ffmpeg.ps1        - FFmpeg installer
+install_pyaudio.bat       - PyAudio installer
+fix_speech_recognition.py - Speech recognition troubleshooter
+setup.py                  - Package setup script
+README.md                 - Full documentation
+
+SUPPORT:
+========
+
+For issues during testing, check:
+1. Python version (3.7+ required)
+2. FFmpeg installation
+3. Video file format compatibility
+4. Available disk space for output files
+
+The application is designed to work even if some features fail.
+Manual input should always be functional for basic video cutting.
