@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 """
 Speech Recognition Fixer - GUI installer for PyAudio
@@ -10,44 +11,50 @@ import subprocess
 import sys
 import threading
 import os
+import platform
 
 class SpeechRecognitionFixer:
     def __init__(self):
         self.root = tk.Tk()
         self.root.title("Speech Recognition Fixer")
-        self.root.geometry("600x500")
+        self.root.geometry("800x600")
         self.root.configure(bg='#f0f0f0')
         
-        # Create UI
         self.create_ui()
-        
-        # Start checking status
         self.check_current_status()
     
     def create_ui(self):
         """Create the user interface"""
         # Title
-        title_label = tk.Label(self.root, text="Voice Video Cutter - Speech Recognition Fix", 
-                              font=("Arial", 16, "bold"), bg='#f0f0f0')
-        title_label.pack(pady=10)
+        title_frame = tk.Frame(self.root, bg='#f0f0f0')
+        title_frame.pack(fill='x', padx=20, pady=10)
         
-        # Status frame
+        tk.Label(title_frame, text="Speech Recognition Fixer", 
+                font=("Arial", 16, "bold"), bg='#f0f0f0').pack()
+        
+        tk.Label(title_frame, text="This tool will automatically install PyAudio for speech recognition", 
+                font=("Arial", 12), bg='#f0f0f0', fg='#666666').pack()
+        
+        # Status
         status_frame = tk.Frame(self.root, bg='#f0f0f0')
-        status_frame.pack(fill='x', padx=20, pady=10)
+        status_frame.pack(fill='x', padx=20, pady=5)
         
         tk.Label(status_frame, text="Current Status:", font=("Arial", 12, "bold"), bg='#f0f0f0').pack(anchor='w')
         
         self.status_label = tk.Label(status_frame, text="Checking...", 
-                                   font=("Arial", 10), bg='#f0f0f0', fg='orange')
-        self.status_label.pack(anchor='w', pady=5)
+                                    font=("Arial", 11), bg='#f0f0f0', fg='orange')
+        self.status_label.pack(anchor='w', padx=20)
         
-        # Progress bar
-        self.progress = ttk.Progressbar(self.root, length=400, mode='indeterminate')
-        self.progress.pack(pady=10)
+        # Progress
+        progress_frame = tk.Frame(self.root, bg='#f0f0f0')
+        progress_frame.pack(fill='x', padx=20, pady=5)
         
-        # Buttons frame
+        self.progress = ttk.Progressbar(progress_frame, mode='indeterminate')
+        self.progress.pack(fill='x')
+        
+        # Buttons
         buttons_frame = tk.Frame(self.root, bg='#f0f0f0')
-        buttons_frame.pack(pady=10)
+        buttons_frame.pack(fill='x', padx=20, pady=10)
         
         self.fix_button = tk.Button(buttons_frame, text="Fix Speech Recognition", 
                                    command=self.start_fix, bg='#4CAF50', fg='white',
@@ -182,7 +189,6 @@ This tool will try multiple installation methods:
         self.log("2. Download PyAudio wheel for your Python version")
         
         # Detect Python version
-        import platform
         py_version = f"{sys.version_info.major}.{sys.version_info.minor}"
         arch = "win_amd64" if platform.machine().endswith('64') else "win32"
         
@@ -264,26 +270,30 @@ This tool will try multiple installation methods:
                 recognizer = sr.Recognizer()
                 mic = sr.Microphone()
                 
-                self.log("Adjusting for ambient noise...")
                 with mic as source:
                     recognizer.adjust_for_ambient_noise(source, duration=1)
                 
-                self.log("✓ Microphone test successful!")
-                self.log(f"Available microphones: {sr.Microphone.list_microphone_names()[:3]}")
-                self.log("✓ Speech recognition is working correctly!")
-                
-                messagebox.showinfo("Test Result", "Speech recognition is working!\n\nVoice commands should work in the main application.")
+                self.log("✓ Speech recognition is working!")
+                self.status_label.config(text="✓ Speech recognition is working!", fg='green')
                 
             except Exception as e:
                 self.log(f"✗ Test failed: {e}")
-                messagebox.showerror("Test Failed", f"Speech recognition is not working:\n\n{e}\n\nClick 'Fix Speech Recognition' to resolve this.")
+                self.status_label.config(text="✗ Speech recognition not working", fg='red')
         
         threading.Thread(target=test, daemon=True).start()
     
     def run(self):
-        """Start the application"""
+        """Run the application"""
         self.root.mainloop()
 
+def main():
+    """Main function"""
+    try:
+        app = SpeechRecognitionFixer()
+        app.run()
+    except Exception as e:
+        print(f"Error: {e}")
+        messagebox.showerror("Error", f"An error occurred: {e}")
+
 if __name__ == "__main__":
-    app = SpeechRecognitionFixer()
-    app.run()
+    main()

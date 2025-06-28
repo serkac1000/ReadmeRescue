@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 """
 Voice-Controlled Video Cutter - Desktop GUI Application
@@ -31,13 +32,13 @@ def check_speech_recognition():
         mic = sr.Microphone()
         # Quick test to see if microphone works
         with mic as source:
-            recognizer.adjust_for_ambient_noise(source, duration=1)
+            recognizer.adjust_for_ambient_noise(source, duration=0.5)
         SPEECH_AVAILABLE = True
         print("✓ Speech recognition working")
         return True
     except ImportError as e:
         if "PyAudio" in str(e):
-            print("✗ PyAudio not installed - run install_pyaudio.bat")
+            print("✗ PyAudio not installed - run install_pyaudio.bat or fix_speech_recognition.py")
         else:
             print(f"✗ SpeechRecognition package not installed: {e}")
         return False
@@ -45,32 +46,23 @@ def check_speech_recognition():
         if "No Default Input Device Available" in str(e):
             print("✗ No microphone detected")
         elif "PortAudio" in str(e):
-            print("✗ PortAudio error - run install_pyaudio.bat")
+            print("✗ PortAudio error - run install_pyaudio.bat or fix_speech_recognition.py")
         else:
             print(f"✗ Audio system error: {e}")
         return False
     except Exception as e:
         if "PyAudio" in str(e) or "Could not find PyAudio" in str(e):
-            print("✗ PyAudio missing - run install_pyaudio.bat")
+            print("✗ PyAudio missing - run install_pyaudio.bat or fix_speech_recognition.py")
         else:
             print(f"✗ Speech recognition error: {e}")
         return False
 
 def check_video_player():
-    """Check if video player is available"""
+    """Check if video player is available (disabled for compatibility)"""
     global VIDEO_PLAYER_AVAILABLE, TkinterVideo
-    try:
-        from tkVideoPlayer import TkinterVideo
-        VIDEO_PLAYER_AVAILABLE = True
-        print("✓ Video preview available")
-        return True
-    except ImportError:
-        print("✗ tkvideoplayer not installed")
-        print("  Run: pip install tkvideoplayer")
-        return False
-    except Exception as e:
-        print(f"✗ Video player error: {e}")
-        return False
+    # Intentionally disabled for maximum compatibility
+    print("✓ Video preview disabled for compatibility")
+    return False
 
 # Check dependencies at startup
 print("Checking dependencies...")
@@ -81,7 +73,7 @@ class VoiceVideoEditor(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Voice Controlled Video Cutter")
-        self.geometry("900x800")
+        self.geometry("900x700")
         self.minsize(800, 600)
         
         # Configure style
@@ -113,6 +105,7 @@ class VoiceVideoEditor(tk.Tk):
             ffmpeg_paths = [
                 'ffmpeg',  # System PATH
                 'C:\\ffmpeg\\bin\\ffmpeg.exe',  # Windows common location
+                'C:\\Program Files\\ffmpeg\\bin\\ffmpeg.exe',  # Alternative Windows location
                 '/usr/bin/ffmpeg',  # Linux common location
                 '/usr/local/bin/ffmpeg',  # macOS common location
             ]
@@ -144,10 +137,6 @@ class VoiceVideoEditor(tk.Tk):
         
         # File Selection Section
         self.create_file_selection_section(main_frame)
-        
-        # Video Preview Section (if available)
-        if VIDEO_PLAYER_AVAILABLE:
-            self.create_video_preview_section(main_frame)
         
         # Voice Commands Section
         self.create_voice_commands_section(main_frame)
@@ -181,16 +170,20 @@ class VoiceVideoEditor(tk.Tk):
                 fg=speech_color, bg='#f0f0f0', font=("Helvetica", 10)).pack(anchor="w", padx=10, pady=2)
         
         # Video Player status
-        player_status = "✓ Available" if VIDEO_PLAYER_AVAILABLE else "✗ Not Available"
-        player_color = "green" if VIDEO_PLAYER_AVAILABLE else "orange"
-        tk.Label(status_frame, text=f"Video Preview: {player_status}", 
-                fg=player_color, bg='#f0f0f0', font=("Helvetica", 10)).pack(anchor="w", padx=10, pady=(2, 10))
+        tk.Label(status_frame, text="Video Preview: ✓ Disabled for compatibility", 
+                fg="blue", bg='#f0f0f0', font=("Helvetica", 10)).pack(anchor="w", padx=10, pady=(2, 10))
         
         if not self.ffmpeg_available:
             warning_label = tk.Label(status_frame, 
-                                   text="⚠ Warning: FFmpeg is required for video processing. Please install FFmpeg.",
+                                   text="⚠ Warning: FFmpeg is required for video processing. Run install_ffmpeg.ps1 as administrator.",
                                    fg="red", bg='#f0f0f0', font=("Helvetica", 9), wraplength=800)
-            warning_label.pack(anchor="w", padx=10, pady=(0, 10))
+            warning_label.pack(anchor="w", padx=10, pady=(0, 5))
+        
+        if not SPEECH_AVAILABLE:
+            speech_warning = tk.Label(status_frame, 
+                                    text="💡 Tip: Run fix_speech_recognition.py to enable voice commands with visual installer.",
+                                    fg="blue", bg='#f0f0f0', font=("Helvetica", 9), wraplength=800)
+            speech_warning.pack(anchor="w", padx=10, pady=(0, 10))
     
     def create_file_selection_section(self, parent):
         """Create file selection interface"""
@@ -212,22 +205,6 @@ class VoiceVideoEditor(tk.Tk):
                                  wraplength=650, bg='#f0f0f0', fg='#666666')
         self.file_label.pack(side="left", padx=(15, 0))
     
-    def create_video_preview_section(self, parent):
-        """Create video preview section"""
-        preview_frame = tk.LabelFrame(parent, text="Video Preview", 
-                                    font=("Helvetica", 12, "bold"),
-                                    bg='#f0f0f0', fg='#333333')
-        preview_frame.pack(fill="both", expand=True, pady=(0, 10))
-        
-        try:
-            self.videoplayer = TkinterVideo(master=preview_frame, scaled=True)
-            self.videoplayer.pack(expand=True, fill="both", padx=10, pady=10)
-        except Exception as e:
-            error_label = tk.Label(preview_frame, 
-                                 text=f"Video preview not available: {str(e)}", 
-                                 bg='#f0f0f0', fg='red')
-            error_label.pack(pady=20)
-    
     def create_voice_commands_section(self, parent):
         """Create voice commands interface"""
         voice_frame = tk.LabelFrame(parent, text="Step 2: Voice Commands", 
@@ -247,7 +224,7 @@ class VoiceVideoEditor(tk.Tk):
    Example: "Save with name my_video_clip"
 3. Exit: "exit" or "quit"
 
-Note: Speak clearly and wait for the "Listening..." indicator."""
+Note: Speak clearly and wait for the "Listening..." indicator. Manual input below always works as alternative."""
         
         cmd_text.insert(tk.END, instructions)
         cmd_text.configure(state="disabled")
@@ -265,12 +242,12 @@ Note: Speak clearly and wait for the "Listening..." indicator."""
         if SPEECH_AVAILABLE:
             self.listen_button.pack(side="left", fill="x", expand=True)
         else:
-            self.listen_button.configure(state="disabled", text="🎤 Speech Recognition Not Available")
+            self.listen_button.configure(state="disabled", text="🎤 Speech Recognition Not Available - Use Manual Input Below")
             self.listen_button.pack(side="left", fill="x", expand=True)
     
     def create_manual_input_section(self, parent):
         """Create manual input interface"""
-        manual_frame = tk.LabelFrame(parent, text="Alternative: Manual Input", 
+        manual_frame = tk.LabelFrame(parent, text="Step 3: Manual Input (Always Available)", 
                                    font=("Helvetica", 12, "bold"),
                                    bg='#f0f0f0', fg='#333333')
         manual_frame.pack(fill="x", pady=(0, 10))
@@ -283,7 +260,7 @@ Note: Speak clearly and wait for the "Listening..." indicator."""
         self.start_time_var = tk.StringVar()
         self.start_time_entry = tk.Entry(input_frame, textvariable=self.start_time_var, width=25, font=("Helvetica", 10))
         self.start_time_entry.grid(row=0, column=1, padx=(0, 10), pady=2)
-        tk.Label(input_frame, text="(e.g., '10 seconds', '1 minute 30 seconds')", 
+        tk.Label(input_frame, text="(e.g., '10 seconds', '1 minute 30 seconds', '10')", 
                 bg='#f0f0f0', fg='#666666', font=("Helvetica", 9)).grid(row=1, column=1, sticky="w", pady=(0, 5))
         
         # End time
@@ -291,7 +268,7 @@ Note: Speak clearly and wait for the "Listening..." indicator."""
         self.end_time_var = tk.StringVar()
         self.end_time_entry = tk.Entry(input_frame, textvariable=self.end_time_var, width=25, font=("Helvetica", 10))
         self.end_time_entry.grid(row=2, column=1, padx=(0, 10), pady=2)
-        tk.Label(input_frame, text="(e.g., '45 seconds', '2 minutes')", 
+        tk.Label(input_frame, text="(e.g., '45 seconds', '2 minutes', '45')", 
                 bg='#f0f0f0', fg='#666666', font=("Helvetica", 9)).grid(row=3, column=1, sticky="w", pady=(0, 5))
         
         # Output name
@@ -299,14 +276,14 @@ Note: Speak clearly and wait for the "Listening..." indicator."""
         self.output_name_var = tk.StringVar()
         self.output_name_entry = tk.Entry(input_frame, textvariable=self.output_name_var, width=25, font=("Helvetica", 10))
         self.output_name_entry.grid(row=4, column=1, padx=(0, 10), pady=2)
-        tk.Label(input_frame, text="(filename without extension)", 
+        tk.Label(input_frame, text="(filename without extension, e.g., 'my_clip')", 
                 bg='#f0f0f0', fg='#666666', font=("Helvetica", 9)).grid(row=5, column=1, sticky="w", pady=(0, 10))
         
         # Cut button
         self.manual_cut_button = tk.Button(input_frame, text="✂ Cut Video", 
                                          command=self.process_manual_cut,
                                          bg='#FF9800', fg='white', font=("Helvetica", 11, "bold"),
-                                         padx=20, pady=5)
+                                         padx=20, pady=8)
         self.manual_cut_button.grid(row=6, column=0, columnspan=2, pady=(5, 0))
     
     def create_progress_section(self, parent):
@@ -344,14 +321,15 @@ Note: Speak clearly and wait for the "Listening..." indicator."""
             print("Speech recognition initialized successfully")
         except Exception as e:
             print(f"Error initializing speech recognition: {e}")
-            self.listen_button.configure(state="disabled", text="🎤 Microphone Error")
+            self.listen_button.configure(state="disabled", text="🎤 Microphone Error - Use Manual Input")
     
     def select_file(self):
         """Handle file selection"""
         filetypes = (
-            ("All Video Files", "*.mp4 *.avi *.mov *.mkv *.wmv *.flv *.webm"),
+            ("All Video Files", "*.mp4 *.avi *.mov *.mkv *.wmv *.flv *.webm *.m4v"),
             ("MP4 files", "*.mp4"),
             ("AVI files", "*.avi"),
+            ("MOV files", "*.mov"),
             ("All files", "*.*")
         )
         
@@ -365,14 +343,6 @@ Note: Speak clearly and wait for the "Listening..." indicator."""
             filename = os.path.basename(file_path)
             self.file_label.config(text=f"Selected: {filename}", fg='#2196F3')
             self.status_label.config(text="Status: Video loaded. Ready for voice command or manual input.")
-            
-            # Load video preview if available
-            if VIDEO_PLAYER_AVAILABLE and hasattr(self, 'videoplayer'):
-                try:
-                    self.videoplayer.load(file_path)
-                    self.videoplayer.play()
-                except Exception as e:
-                    print(f"Error loading video preview: {e}")
         else:
             self.file_label.config(text="No file selected", fg='#666666')
             self.status_label.config(text="Status: Ready - Select a video file to begin")
@@ -384,7 +354,7 @@ Note: Speak clearly and wait for the "Listening..." indicator."""
             return
         
         if not SPEECH_AVAILABLE:
-            messagebox.showerror("Error", "Speech recognition is not available.")
+            messagebox.showerror("Error", "Speech recognition is not available. Please use manual input or run fix_speech_recognition.py")
             return
         
         if self.is_listening:
@@ -413,7 +383,7 @@ Note: Speak clearly and wait for the "Listening..." indicator."""
             self.after(0, lambda: self.process_command(command))
             
         except sr.UnknownValueError:
-            self.after(0, lambda: self.status_label.config(text="Status: Could not understand audio. Please try again."))
+            self.after(0, lambda: self.status_label.config(text="Status: Could not understand audio. Please try again or use manual input."))
         except sr.RequestError as e:
             self.after(0, lambda: self.status_label.config(text=f"Status: Speech recognition service error: {e}"))
         except sr.WaitTimeoutError:
@@ -434,7 +404,7 @@ Note: Speak clearly and wait for the "Listening..." indicator."""
             elif "exit" in command or "quit" in command:
                 self.quit()
             else:
-                self.status_label.config(text="Status: Command not recognized. Please try again with a valid command.")
+                self.status_label.config(text="Status: Command not recognized. Please try again with a valid command or use manual input.")
         except Exception as e:
             self.status_label.config(text=f"Status: Error processing command: {e}")
     
@@ -467,14 +437,6 @@ Note: Speak clearly and wait for the "Listening..." indicator."""
             self.end_time_var.set(end_str)
             
             self.status_label.config(text=f"Status: Ready to cut from {start_time}s to {end_time}s. Say 'Save with name [filename]' or use manual input.")
-            
-            # Seek video player if available
-            if VIDEO_PLAYER_AVAILABLE and hasattr(self, 'videoplayer'):
-                try:
-                    self.videoplayer.seek(int(start_time))
-                    self.videoplayer.play()
-                except Exception:
-                    pass  # Ignore video player errors
                     
         except Exception as e:
             self.status_label.config(text=f"Status: Error processing cut command: {e}")
@@ -522,7 +484,7 @@ Note: Speak clearly and wait for the "Listening..." indicator."""
             end_time = self.parse_time(end_str)
             
             if start_time is None or end_time is None:
-                raise ValueError("Could not parse time values. Use formats like '10 seconds' or '1 minute 30 seconds'")
+                raise ValueError("Could not parse time values. Use formats like '10 seconds', '1 minute 30 seconds', or just '10'")
             
             if start_time >= end_time:
                 raise ValueError("Start time must be before end time")
@@ -564,7 +526,7 @@ Note: Speak clearly and wait for the "Listening..." indicator."""
     def cut_video(self, input_file, output_name, start_time, end_time):
         """Cut video using FFmpeg"""
         if not self.ffmpeg_available:
-            messagebox.showerror("Error", "FFmpeg is not available. Please install FFmpeg to use this feature.")
+            messagebox.showerror("Error", "FFmpeg is not available. Please install FFmpeg using install_ffmpeg.ps1 to use this feature.")
             return
         
         try:

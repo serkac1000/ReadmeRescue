@@ -1,74 +1,42 @@
-================================================
-Voice-Controlled Video Cutter - Quick Start Guide
-================================================
+🎬 VOICE VIDEO CUTTER - QUICK START GUIDE 🎬
 
-Welcome! This package contains everything you need to run the Voice-Controlled Video Cutter on Windows.
+FASTEST WAY TO GET STARTED:
+===========================
 
-QUICK START:
-1. Make sure Python is installed (python.org)
-2. Double-click "install_and_run.bat"
-3. Wait for setup to complete
-4. The application will start automatically!
+1. Double-click: install_and_run.bat
+   (This installs everything and starts the app)
 
-WHAT EACH FILE DOES:
-- install_and_run.bat      -> Main setup and launch script (START HERE!)
-- install_ffmpeg.ps1       -> Installs FFmpeg for video processing
-- fix_speech_recognition.py -> Visual GUI tool to fix speech recognition
-- install_pyaudio.bat      -> Command-line speech recognition fixer
-- main.py                 -> The application code
-- requirements.txt        -> Python package dependencies
-- README.md               -> Detailed documentation
-- setup.py                -> Advanced installation options
+2. If FFmpeg is missing, run: install_ffmpeg.ps1
+   (Right-click and "Run with PowerShell")
 
-FIRST TIME SETUP:
-1. Install Python 3.7+ from https://python.org
-   - IMPORTANT: Check "Add Python to PATH" during installation
-   - If Python is already installed in C:\Python312 (or similar), that's fine!
-2. Double-click "install_and_run.bat"
-3. If FFmpeg is not found, run "install_ffmpeg.ps1" as administrator
-4. The application will open with a graphical interface
+3. If you want voice commands, run: fix_speech_recognition.py
+   (Visual installer for speech recognition)
 
-PYTHON PATH TROUBLESHOOTING:
-- The script automatically detects Python in common locations like C:\Python312
-- If you get "Python not found", check if Python is installed
-- The script will try: python command, C:\Python312, C:\Python311, py command
-- If still failing, add your Python installation to Windows PATH
+WHAT YOU NEED:
+==============
+✓ Python 3.7+ (with "Add to PATH" checked during install)
+✓ FFmpeg (for video processing)
+✓ A video file to test with
 
-HOW TO USE:
-1. Click "Select Video File" and choose your video
-2. Either use voice commands or manual input:
-   
-   VOICE: Click microphone button and say:
-   - "Cut from 10 seconds to 30 seconds"
-   - "Save with name my_clip"
-   
-   MANUAL: Fill in the text fields:
-   - Start time: "10 seconds" or "1 minute 30 seconds"  
-   - End time: "30 seconds" or "2 minutes"
-   - Output name: "my_clip"
-   - Click "Cut Video"
+WHAT WORKS WITHOUT EXTRA SETUP:
+===============================
+✓ Manual video cutting (always works)
+✓ All video formats (MP4, AVI, MOV, etc.)
+✓ Time input with units ("10 seconds", "1 minute 30 seconds")
+✓ Simple numbers ("10", "30" - interpreted as seconds)
 
-TROUBLESHOOTING:
-- If Python error: Install Python and check "Add to PATH"
-- If FFmpeg error: Run install_ffmpeg.ps1 as administrator
-- If voice doesn't work: Run install_pyaudio.bat to fix speech recognition
-- If video preview missing: Normal, core features still work
+OPTIONAL FEATURES:
+==================
+🎤 Voice commands (requires PyAudio setup)
+📺 Video preview (disabled for compatibility)
 
-SPEECH RECOGNITION FIX:
-If you see "speech recognition not available":
+NEED HELP?
+==========
+- Read: README.md (complete manual)
+- Read: WINDOWS_TEST_INSTRUCTIONS.txt (testing guide)
+- All tools include helpful error messages
+- Manual input always works as backup
 
-OPTION 1 - Visual Installer (Recommended):
-1. Double-click "fix_speech_recognition.py"
-2. Click "Fix Speech Recognition" 
-3. Wait for automatic installation
-4. Click "Test Speech Recognition" to verify
-
-OPTION 2 - Command Line:
-1. Double-click "install_pyaudio.bat"
-2. Follow the on-screen instructions
-
-The app works without speech recognition (use manual input instead).
-
-Need help? Check README.md for detailed instructions.
-
-================================================
+TESTING TIP:
+============
+Start with a short video file (under 1 minute) for quick testing!
