@@ -10,17 +10,43 @@ echo ================================================================
 echo.
 
 :: Check if Python is available
+set PYTHON_CMD=
 python --version >nul 2>&1
-if !errorlevel! neq 0 (
-    echo ERROR: Python is not installed or not in PATH
+if !errorlevel! equ 0 (
+    set PYTHON_CMD=python
+) else (
+    :: Try common Python installation paths
+    for %%P in (
+        "C:\Python312\python.exe"
+        "C:\Python311\python.exe" 
+        "C:\Python310\python.exe"
+        "C:\Python39\python.exe"
+        "C:\Python38\python.exe"
+        "C:\Python37\python.exe"
+        "py"
+    ) do (
+        %%P --version >nul 2>&1
+        if !errorlevel! equ 0 (
+            set PYTHON_CMD=%%P
+            goto :python_found
+        )
+    )
+)
+
+:python_found
+if "!PYTHON_CMD!"=="" (
+    echo ERROR: Python is not installed or not found
     echo Please install Python 3.7+ from https://python.org
     echo Make sure to check "Add Python to PATH" during installation
+    echo.
+    echo Or, if Python is installed in a custom location like C:\Python312,
+    echo add it to your system PATH or run this script from the Python directory.
     echo.
     pause
     exit /b 1
 )
 
-echo [1/5] Python found and available
+echo [1/5] Python found: !PYTHON_CMD!
 echo.
 
 :: Check for FFmpeg
@@ -54,7 +80,7 @@ set VENV_DIR=%~dp0venv
 :: Create virtual environment if it doesn't exist
 if not exist "!VENV_DIR!\Scripts\activate.bat" (
     echo [3/5] Creating virtual environment...
-    python -m venv "!VENV_DIR!"
+    !PYTHON_CMD! -m venv "!VENV_DIR!"
     if !errorlevel! neq 0 (
         echo ERROR: Failed to create virtual environment
         echo This might be due to:
@@ -81,10 +107,10 @@ if !errorlevel! neq 0 (
 
 :: Upgrade pip and install requirements
 echo [5/5] Installing/updating Python dependencies...
-python -m pip install --upgrade pip setuptools wheel
+!PYTHON_CMD! -m pip install --upgrade pip setuptools wheel
 
 :: Install requirements with error handling
-pip install -r requirements.txt
+!PYTHON_CMD! -m pip install -r requirements.txt
 if !errorlevel! neq 0 (
     echo.
     echo WARNING: Some dependencies failed to install
@@ -92,12 +118,12 @@ if !errorlevel! neq 0 (
     echo.
     
     :: Try installing PyAudio from wheel
-    pip install --upgrade pip
-    pip install pipwin
+    !PYTHON_CMD! -m pip install --upgrade pip
+    !PYTHON_CMD! -m pip install pipwin
     pipwin install pyaudio
     
     :: Install other requirements
-    pip install SpeechRecognition tkvideoplayer Pillow
+    !PYTHON_CMD! -m pip install SpeechRecognition tkvideoplayer Pillow
     
     echo.
     echo Dependencies installation completed with warnings.
@@ -121,7 +147,7 @@ echo ================================================================
 echo.
 
 :: Run the application
-python main.py
+!PYTHON_CMD! main.py
 
 :: Pause to show any error messages
 if !errorlevel! neq 0 (

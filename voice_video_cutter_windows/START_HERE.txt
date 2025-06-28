@@ -21,9 +21,16 @@ WHAT EACH FILE DOES:
 FIRST TIME SETUP:
 1. Install Python 3.7+ from https://python.org
    - IMPORTANT: Check "Add Python to PATH" during installation
+   - If Python is already installed in C:\Python312 (or similar), that's fine!
 2. Double-click "install_and_run.bat"
 3. If FFmpeg is not found, run "install_ffmpeg.ps1" as administrator
 4. The application will open with a graphical interface
+
+PYTHON PATH TROUBLESHOOTING:
+- The script automatically detects Python in common locations like C:\Python312
+- If you get "Python not found", check if Python is installed
+- The script will try: python command, C:\Python312, C:\Python311, py command
+- If still failing, add your Python installation to Windows PATH
 
 HOW TO USE:
 1. Click "Select Video File" and choose your video
