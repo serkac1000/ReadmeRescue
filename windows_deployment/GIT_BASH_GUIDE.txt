@@ -1,0 +1,45 @@
+GIT BASH / MINGW64 SETUP GUIDE
+===============================
+
+ISSUE: You're using Git Bash which has different syntax than Command Prompt
+
+SOLUTION 1 - Use the Git Bash Script:
+1. In Git Bash, navigate to the extracted folder
+2. Run: bash git_bash_install.sh
+3. This script is designed for Git Bash syntax
+
+SOLUTION 2 - Fix Virtual Environment in Git Bash:
+If you need to activate a virtual environment in Git Bash:
+- Wrong: venv\Scripts\activate
+- Correct: source venv/Scripts/activate
+
+SOLUTION 3 - Use Command Prompt Instead:
+1. Press Windows + R
+2. Type "cmd" and press Enter
+3. Navigate to your folder: cd "C:\path\to\your\folder"
+4. Run: quick_install.bat
+
+SOLUTION 4 - Manual Git Bash Commands:
+In Git Bash, run these commands one by one:
+
+# Check Python
+python --version
+
+# Install packages
+python -m pip install Flask Werkzeug SpeechRecognition
+
+# Create directories
+mkdir -p uploads output
+
+# Start application
+python app.py
+
+VIRTUAL ENVIRONMENT FIX:
+If working with other projects that use virtual environments:
+- Git Bash: source venv/Scripts/activate
+- Command Prompt: venv\Scripts\activate.bat
+- PowerShell: venv\Scripts\Activate.ps1
+
+RECOMMENDATION:
+For Python development on Windows, Command Prompt or PowerShell 
+work better than Git Bash for package management and virtual environments.

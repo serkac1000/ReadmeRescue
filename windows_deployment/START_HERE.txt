@@ -1,14 +1,19 @@
 VOICE-CONTROLLED VIDEO CUTTER - WINDOWS VERSION
 ===============================================
 
-QUICK START - FOR FRESH PYTHON INSTALLATION:
+QUICK START - CHOOSE YOUR TERMINAL:
 
-METHOD 1 - Quick Install (RECOMMENDED AFTER PYTHON REINSTALL):
+FOR GIT BASH / MINGW64 USERS:
+1. Open "GIT_BASH_GUIDE.txt" for complete instructions
+2. In Git Bash: bash git_bash_install.sh
+3. Open your browser to: http://localhost:5000
+
+FOR COMMAND PROMPT USERS:
 1. First run "test_python.bat" to verify Python is working
 2. If test passes, run "quick_install.bat"
 3. Open your browser to: http://localhost:5000
 
-METHOD 2 - If Quick Install Fails:
+IF INSTALLATION FAILS:
 1. Run "diagnose_python.bat" to check Python installation
 2. Try "universal_install.bat" which handles multiple Python setups
 
